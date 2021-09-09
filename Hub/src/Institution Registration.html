@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Integrated Online University Admission System </title>
+    <link rel="stylesheet" href="css/news.css">
+
+
+    <style>
+
+        form {
+            border: 3px solid #f1f1f1;
+            width: 50%;
+            height: 50%;
+            background: transparent;
+            padding-top: 16px;
+            padding-right: 40px;
+            margin: auto;
+            padding-inline: 20px 40px;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #1c8adb;
+            color: #fff;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 25%;
+
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background: #1c8adb;
+            color: #fff;
+        }
+
+        .imgcontainer {
+            text-align: center;
+
+        }
+
+        img.avatar {
+            width: 20%;
+            border-radius: 20%;
+        }
+
+        .container {
+            padding: 30px;
+
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="wrapper">
+        <ul class="nav-area">
+            <li><h4>Integrated Online Admission &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+            <li>
+            <li><a href="http://localhost:63342/Hub-generated%20(1)/main.html?_ijt=dv2fmolu5assgttibaehrlrk69">Home</a>
+            </li>
+            <li>
+                <a href="http://localhost:63342/Hub-generated%20(1)/Hub/src/AboutUs.html?_ijt=horgcmj7jlo0ct6aqsffs26d08">About
+                    Us</a></li>
+            <li><a href="http://localhost:63342/Hub-generated%20(1)/Hub/src/news.html?_ijt=6jc7evthhnq34q9h9aacrhcref">News</a>
+            </li>
+            <li>
+                <a href="http://localhost:63342/Hub-generated%20(1)/Hub/src/Contact%20Us.html?_ijt=r32boouehb7orvdvr52oebre9n">Contact
+                    Us</a></li>
+        </ul>
+
+
+    </div>
+    <b><h4 style="color:#1c8adb;text-align:center">Only Institution Employees Are Allowed To Register</h4></b>
+    &nbsp;&nbsp;
+    <form id="registrationform">
+        <div class="imgcontainer">
+            <img src="images/avatar.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container" width="200" height="200">
+            <label id="uname" style="color:#1c8adb;"><b>Email</b></label>
+            <input type="text" placeholder="Enter Institution Email" id="universityEmail" required>
+            <span class="error"><p id="name_error"></p></span>
+            <label for="uname" style="color:#1c8adb;"><b>Institution Name</b></label>
+            <input type="text" placeholder="Enter Institution Name" id="universityName" required>
+
+            <label id="uniKeyy" style="color:#1c8adb;"><b>Registration Key</b></label>
+            <input type="password" placeholder="Enter the key" id="uniKey" required>
+
+            <label id="psw" style="color:#1c8adb;"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" id="universityPassword" required>
+
+            <label id="psw2" style="color:#1c8adb;"><b>Confirm Password</b></label>
+            <input type="password" placeholder="Retype Password" id="universityPassword2" required>
+        </div>
+    </form>
+    <div class="container" align="center">
+        <button id="myBtn">Register</button>
+    </div>
+
+
+    <p id="demo"></p>
+    <script src="//api.backendless.com/sdk/js/latest/backendless.min.js"></script>
+    <script>
+        document.getElementById("myBtn").addEventListener("click", displayDate);
+
+        function displayDate() {
+            const $email = document.forms["registrationform"]["universityEmail"].value;
+            const $name = document.forms["registrationform"]["universityName"].value;
+            const $password = document.forms["registrationform"]["universityPassword"].value;
+            const $password2 = document.forms["registrationform"]["universityPassword2"].value;
+            const $uniKey = document.forms["registrationform"]["uniKey"].value;
+
+            if ($email == null || $email == "" || $name == "" || $name == null || $password == null || $password == "" || $password2 == null || $password2 == "" || $uniKey == null || $uniKey == "") {
+                alert("Enter all fields");
+
+            } else if ($password != $password2) {
+                alert("your passwords do not match");
+
+            } else {
+
+                var user = new Backendless.User();
+                user.email = $email;
+                user.Role = "Institution";
+                user.Name = $name;
+                user.password = $password;
+                document.getElementById("demo").innerHTML = Date();
+                Backendless.UserService.register(user).then(userRegistered).catch(gotError);
+
+            }
+
+        }
+
+        const APP_ID = 'D6F24EF3-973C-6767-FF0A-1A3AA25B9300';
+        const API_KEY = '66456480-A606-E33D-FF39-2AE84754CA00';
+
+        Backendless.serverURL = 'https://api.backendless.com';
+        Backendless.initApp(APP_ID, API_KEY);
+
+        function userRegistered(user) {
+
+            alert("user has been registered successfully");
+            window.location.replace("http://localhost:63342/Hub-generated%20(1)/main.html?_ijt=dv2fmolu5assgttibaehrlrk69");
+        }
+
+        function gotError(err) // see more on error handling
+        {
+            console.log("error message - " + err.message);
+            console.log("error code - " + err.statusCode);
+        }
+
+
+    </script>
+</header>
+<section><p></section>
+<footer class="footer-distributed">
+
+    <div class="footer-left">
+
+        <h3>IOUA<span></span></h3>
+
+        <p class="footer-links">
+
+            <a href="http://localhost:63342/IOUAS/main.html?_ijt=7296bvujffnouklbltrpd97nqf">Home</a>
+
+            <a href="http://localhost:63342/IOUAS/news.html?_ijt=b1s8oeou4i2u9g10ivk6eu14rl">News</a>
+
+            <a href="http://localhost:63342/IOUAS/AboutUs.html?_ijt=b1s8oeou4i2u9g10ivk6eu14rl">About</a>
+
+            <a href="http://localhost:63342/IOUAS/Contact%20Us.html?_ijt=b1s8oeou4i2u9g10ivk6eu14rl">Contact Us</a>
+        </p>
+
+        <p class="footer-company-name">Integrated Online Admission © 2015</p>
+    </div>
+
+    <div class="footer-center">
+
+        <div>
+            <i class="fa fa-map-marker"></i>
+            <p><span>Road 50A King Edward</span> Willows , Bloemfontein</p>
+        </div>
+
+        <div>
+            <i class="fa fa-phone"></i>
+            <p>+27 7985 58687</p>
+        </div>
+
+        <div>
+            <i class="fa fa-envelope"></i>
+            <p><a href="mailto:support@company.com">wwww.ioua.ac.za</a></p>
+        </div>
+
+    </div>
+
+    <div class="footer-right">
+
+        <p class="footer-company-about">
+            <span>About the company</span>
+            This is an integrated appliaction where a student can make one profile and use it to apply to many
+            institutions at once
+        </p>
+
+        <div class="footer-icons">
+
+            <a href="#"><i class="fa fa-facebook"><img src="images/face4.jpg" width="40"></i></a>
+            <a href="#"><i class="fa fa-twitter"><img src="images/twit6.jpg" width="40"></i></a>
+            <a href="#"><i class="fa fa-linkedin"><img src="images/link.png" width="40"></i></a>
+            <a href="#"><i class="fa fa-github"><img src="images/git.png" width="40"></i></a>
+        </div>
+
+    </div>
+
+</footer>
+
+
+</body>
+</html>
